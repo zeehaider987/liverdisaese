@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -24,6 +26,7 @@ class _HomeWebViewState extends State<HomeWebView> {
     // initialization();
    
   }
+ 
   @override
   void dispose() {
     // TODO: implement dispose
@@ -44,23 +47,41 @@ class _HomeWebViewState extends State<HomeWebView> {
   //   this is rouaf work for git 
   //   // FlutterNativeSplash.remove(); 
   // }
- 
+//  Image appLogo = new Image(
+// image: new ExactAssetImage("/assets/images/liverdisaeses.png"),
+// height: 28.0,
+// width: 20.0,
+// alignment: FractionalOffset.center);
   @override
   Widget build(BuildContext context){
     return 
     MaterialApp(
       title:"Liver Diseases Info",
-      color:Color.fromARGB(255, 34, 181, 115),
+      color:Color(0x0000AEC7),
       
       debugShowCheckedModeBanner: false,
       home:WillPopScope(
         onWillPop: _onBack,
         child: Scaffold(
           key: _globalKey,
-      // appBar: AppBar(
-      //   title: Image.asset('assets/Images/appbar.png'),
-      //   backgroundColor:Color.fromARGB(255, 34, 181, 115)
-      //   ),
+      appBar: AppBar(
+        title: Container(
+          padding: EdgeInsets.all(0),
+          
+          child:Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            
+            
+            children: [
+            Image.asset('assets/images/liverdisaeses.png',fit: BoxFit.contain,height: 60,width: 50,),
+            Text("Liver Disaeses Info",style: TextStyle(
+              fontFamily: "TrajanPro", 
+              color: Color.fromARGB(255, 255, 255, 255),
+              fontWeight: FontWeight.w500,
+            ),)
+            ],),),
+        backgroundColor:Color.fromARGB(255, 0, 172, 199),
+        ),
       // ignore: prefer_const_constructors
       body: WebView(
         
@@ -77,6 +98,9 @@ class _HomeWebViewState extends State<HomeWebView> {
             await launchUrl(Uri.parse(request.url,03,33));        
             return NavigationDecision.prevent;
           } else if(request.url.contains("telto:")) { 
+            await launchUrl(Uri.parse(request.url));
+            return NavigationDecision.prevent;
+          }else if(request.url.contains("https://")) { 
             await launchUrl(Uri.parse(request.url));
             return NavigationDecision.prevent;
           }
